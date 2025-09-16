@@ -29,10 +29,6 @@ namespace StringManipulationChallenge
 
             String concatString = ConcatNames("John", "Smith");
             Console.WriteLine(concatString);
-
-
-            
-
         }
 
         /// <summary>
@@ -115,7 +111,7 @@ namespace StringManipulationChallenge
         /// <returns></returns>
         public static string ConcatNames(string fName, string lName)
         {
-           return fName + " " + lName;
+            return fName + " " + lName;
         }
     }//end of program
 }
