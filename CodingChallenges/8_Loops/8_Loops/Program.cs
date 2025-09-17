@@ -20,7 +20,16 @@ namespace _8_LoopsChallenge
         /// <returns></returns>
         public static int UseFor(List<int> x)
         {
-            throw new NotImplementedException("UseFor() is not implemented yet.");
+            int count = 0;
+            for (int i = 0; i < x.Count; i++)
+            {
+                if (x[i] % 2 != 0)
+                {
+                    count++;
+                }
+            }
+            return count;
+
         }
 
         /// <summary>
@@ -31,7 +40,18 @@ namespace _8_LoopsChallenge
         /// <returns></returns>
         public static int UseForEach(List<object> x)
         {
-            throw new NotImplementedException("UseForEach() is not implemented yet.");
+            int count = 0;
+            foreach (object item in x)
+            {
+                if (item is int n)
+                {
+                    if (n % 2 == 0)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
         }
 
         /// <summary>
@@ -42,7 +62,21 @@ namespace _8_LoopsChallenge
         /// <param name="x"></param>
         public static int UseWhile(List<int> x)
         {
-            throw new NotImplementedException("UseFor() is not implemented yet.");
+            int count = 0;
+            while (x.Count > 0)
+            {
+                int n = x[0];
+                x.RemoveAt(0);
+                if (n == 1234)
+                {
+                    break;
+                }
+                if (n % 4 == 0)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         /// <summary>
@@ -53,7 +87,15 @@ namespace _8_LoopsChallenge
         /// <returns></returns>
         public static int UseForThreeFour(int[] x)
         {
-            throw new NotImplementedException("UseForThreeFour() is not implemented yet.");
+            int count = 0;
+            for (int i = 0; i < x.Length; i++)
+            {
+                if (x[i] % 3 == 0 && x[i] % 4 == 0)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         /// <summary>
@@ -64,7 +106,15 @@ namespace _8_LoopsChallenge
         /// <returns></returns>
         public static string LoopdyLoop(List<string>[] stringListArray)
         {
-            throw new NotImplementedException("LoopdyLoop() is not implemented yet.");
+            string result = "";
+            foreach (List<string> list in stringListArray)
+            {
+                foreach (string str in list)
+                {
+                    result += str + " ";
+                }
+            }
+            return result;
         }
     }
 }

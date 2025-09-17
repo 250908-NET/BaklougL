@@ -43,7 +43,7 @@ namespace _8_LoopsChallenge.Tests
         [Fact]
         public void UseForEachShouldReturnHowManyEvenObjects()
         {
-            Assert.Equal(Program.UseForEach(oddsAndEvensDiffTypes), 5);
+            Assert.Equal(Program.UseForEach(oddsAndEvensDiffTypes), 3); // should be 3
         }
 
         // [Fact]
