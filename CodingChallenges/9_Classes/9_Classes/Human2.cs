@@ -4,13 +4,33 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("9_ClassesChallenge.Tests")]
 namespace _9_ClassesChallenge
 {
-    internal class Human2
+    internal class Human2 : Human
     {
         private string lastName = "Smyth";
         private string firstName = "Pat";
         private string eyeColor;
         private int age;
 
+        private int weight;
+        public int Weight
+        {
+            get { return weight; }
+            set
+            {
+                if (value < 0 || value > 400)
+                {
+                    weight = 0;
+                }
+                else
+                {
+                    weight = value;
+                }
+            }
+        }
+
+        public Human2()
+        {
+        }
 
         public Human2(string first, string last, string eye, int personAge)
         {
@@ -31,10 +51,30 @@ namespace _9_ClassesChallenge
             lastName = last;
             eyeColor = eye;
         }
-      
+
+        public string AboutMe2()
+        {
+            if (age != 0 && eyeColor != null)
+            {
+                return $"My name is {firstName} {lastName}. My age is {age}. My eye color is {eyeColor}.";
+            }
+            else if (age != 0)
+            {
+                return $"My name is {firstName} {lastName}. My age is {age}.";
+            }
+            else if (eyeColor != null)
+            {
+                return $"My name is {firstName} {lastName}. My eye color is {eyeColor}.";
+            }
+            else
+            {
+                return $"My name is {firstName} {lastName}.";
+            }
+        }
 
     }
 }
+
 
 // 1. Create a Human2 Class. Make it exactly the same as the Human class except add two more private member variables to the Human2 Class.
 //     - 'eyeColor' (string) and 'age' (int) with no default values for either.

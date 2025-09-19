@@ -11,22 +11,26 @@ namespace _9_ClassesChallenge
         private string firstName = "Pat";
 
 
-        public HumanInfo(string first, string last)
+        public Human(string first, string last)
         {
-
+            firstName = first;
+            lastName = last;
         }
 
-        public Human();
+        public Human()
+        {
+            
+        }
 
 
         public string AboutMe()
         {
-            return "My name is " + firstName + " " +lastName;
+            return $"My name is {firstName} {lastName}.";
         }
 
 
-    }//end of class
-}//end of namespace
+    }
+}
 
 
 
