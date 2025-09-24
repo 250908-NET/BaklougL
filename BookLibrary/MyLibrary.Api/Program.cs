@@ -11,6 +11,10 @@ string CS = File.ReadAllText("../connection_string.env");
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<MyLibraryDbContext>(options => options.UseSqlServer(CS));
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+
 
 
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).CreateLogger(); 
