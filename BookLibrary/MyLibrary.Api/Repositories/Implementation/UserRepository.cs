@@ -1,7 +1,8 @@
 using MyLibrary.Api.Models;
+using MyLibrary.Api.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyLibrary.Api.Repository;
+namespace MyLibrary.Api.Repositories;
 
 
 public class UserRepository : IUserRepository
@@ -25,24 +26,12 @@ public class UserRepository : IUserRepository
         return await _dbContext.Users.FindAsync(id);
     }
 
-    public async Task<IEnumerable<User>> GetAllUsersAsync()
+    public async Task<List<User>> GetAllUsersAsync()
     {
         return await _dbContext.Users.ToListAsync();
     }
 
-    public async Task UpdateUserAsync(User user)
-    {
-        _dbContext.Users.Update(user);
-        await _dbContext.SaveChangesAsync();
-    }
 
-    public async Task DeleteUserAsync(int id)
-    {
-        var user = await _dbContext.Users.FindAsync(id);
-        if (user != null)
-        {
-            _dbContext.Users.Remove(user);
-            await _dbContext.SaveChangesAsync();
-        }
-    }
+
+   
 }

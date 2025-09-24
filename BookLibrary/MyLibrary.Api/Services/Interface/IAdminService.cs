@@ -1,7 +1,7 @@
 using MyLibrary.Api.Models;
 using MyLibrary.Api.Data;
 
-namespace MyLibrary.Services;
+namespace MyLibrary.Api.Services;
 
 public interface IAdminService
 {

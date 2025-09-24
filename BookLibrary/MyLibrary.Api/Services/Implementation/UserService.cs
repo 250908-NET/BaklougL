@@ -1,7 +1,7 @@
 using MyLibrary.Api.Models;
-using MyLibrary.Api.Data;
+using MyLibrary.Api.Repositories;
 
-namespace MyLibrary.Services;
+namespace MyLibrary.Api.Services;
 
 public class UserService : IUserService
 {
@@ -12,18 +12,18 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    Task<List<User>> GetAllUsersAsync() => _userRepository.GetAllUsersAsync();  
+    public Task<List<User>> GetAllUsersAsync() => _userRepository.GetAllUsersAsync();  
 
-    Task<User?> GetUserByIdAsync(int id) => _userRepository.GetUserByIdAsync(id);
+    public Task<User?> GetUserByIdAsync(int id) => _userRepository.GetUserByIdAsync(id);
 
-    async Task<User> AddUserAsync(User user)
+    public async Task<User> AddUserAsync(User user)
     {
+
         await _userRepository.AddUserAsync(user);
-        await _userRepository.SaveChangesAsync();
         return user;
     }
-    Task<User?> UpdateUserAsync(int id, User updatedUser) => _userRepository.UpdateUserAsync(id, updatedUser);
-    Task<bool> DeleteUserAsync(int id) => _userRepository.DeleteUserAsync(id);
+
+  
    
 }
 

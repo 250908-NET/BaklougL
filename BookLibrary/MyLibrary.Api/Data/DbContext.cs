@@ -1,7 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-
-
 using MyLibrary.Api.Models;
 
 namespace MyLibrary.Api.Data;
