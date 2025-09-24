@@ -1,6 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using MyLibrary.Api.Models;
+using MyLibrary.Api.Data;
+
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
+string CS = File.ReadAllText("../connection_string.env");
+
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<MyLibraryDbContext>(options => options.UseSqlServer(CS));
+
+
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).CreateLogger(); 
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 
@@ -15,7 +29,6 @@ app.UseHttpsRedirection();
 
 app.MapGet("/", () =>
 {
-
     return "Hello World!";
 });
 
