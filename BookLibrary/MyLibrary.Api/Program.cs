@@ -5,6 +5,7 @@ using MyLibrary.Api.Services;
 using MyLibrary.Api.Repositories;
 using Serilog;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 string CS = File.ReadAllText("../connection_string.env");
@@ -15,9 +16,14 @@ builder.Services.AddDbContext<MyLibraryDbContext>(options => options.UseSqlServe
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ILoanService, LoanService>();
+
+
+
 
 
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).CreateLogger(); 
@@ -40,30 +46,55 @@ app.MapGet("/", () =>
 });
 
 
-app.MapPost("/books", async (Book book, IBookService bookService) =>
-{
-    var createdBook = await bookService.AddBookAsync(book);
-    return Results.Created($"/books/{createdBook.Id}", createdBook);
-});
 
+
+
+
+//user & admin can look for all available books
 app.MapGet("/books", async (IBookService bookService) =>
 {
     return Results.Ok(await bookService.GetAllBooksAsync());
 });
 
-app.MapGet("/books/{id}", async (int id, IBookService bookService) =>
+//user & admin can look for aspecific book by name 
+app.MapGet("/books/search", async (string title, IBookService bookService) =>
 {
-    var book = await bookService.GetBookByIdAsync(id);
-    return book is not null ? Results.Ok(book) : Results.NotFound();
+    var books = await bookService.SearchBooksByTitleAsync(title);
+    return Results.Ok(books);
+});
+
+
+//user & admin can look up books being borrowed by a specific user    ///need to be tested 
+app.MapGet("/users/{id}/loans", async (int id, ILoanService loanService) =>
+{
+    var loans = await loanService.GetLoansByUserIdAsync(id);
+    return Results.Ok(loans);
+});
+
+
+
+//admin can add new books to the liberary
+app.MapPost("/admin/books", async (Book book, IBookService bookService) =>
+{
+    var createdBook = await bookService.AddBookAsync(book);
+    return Results.Created($"/books/{createdBook.Id}", createdBook);
 });
 
 
 // GET /users/{id}/books
-app.MapGet("/users/{id}/books", async (int id, IUserService userService) =>
-{
-    var books = await userService.GetBooksByUserIdAsync(id);
-    return Results.Ok(books);
-});
+// app.MapGet("/users/{id}/books", async (int id, IUserService userService) =>
+// {
+//     var books = await userService.GetBooksByUserIdAsync(id);
+//     return Results.Ok(books);
+// });
 
 app.Run();
 
+
+
+
+// app.MapGet("/books/{id}", async (int id, IBookService bookService) =>
+// {
+//     var book = await bookService.GetBookByIdAsync(id);
+//     return book is not null ? Results.Ok(book) : Results.NotFound();
+// });

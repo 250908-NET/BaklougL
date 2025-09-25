@@ -13,9 +13,21 @@ public class BookService : IBookService
         _bookRepository = bookRepository;
     }
 
-    public Task<List<Book>> GetAllBooksAsync() => _bookRepository.GetAllBooksAsync();
 
-    public Task<Book?> GetBookByIdAsync(int id) => _bookRepository.GetBookByIdAsync(id);
+
+
+    public Task<List<Book>> GetAllBooksAsync() => _bookRepository.GetAllBooksAsync();
+    public Task<List<Book>> SearchBooksByTitleAsync(string title) => _bookRepository.SearchBooksByTitleAsync(title);
+
+    public Task<List<Book>> GetBooksByUserIdAsync(int userId) => _bookRepository.GetBooksByUserIdAsync(userId);
+
+
+
+
+
+
+
+
 
     public async Task<Book> AddBookAsync(Book book)
     {
@@ -30,6 +42,5 @@ public class BookService : IBookService
     public Task<bool> DeleteBookAsync(int id) => _bookRepository.DeleteBookAsync(id);
     
 
-    public Task<List<Book>> GetBooksByUserIdAsync(int userId) => _bookRepository.GetBooksByUserIdAsync(userId);
    
 }
