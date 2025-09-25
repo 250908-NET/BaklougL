@@ -11,13 +11,13 @@ public class Loan
     [Required]
     public int UserId { get; set; }
     [Required]
-    public int BookTitle { get; set; }
+    public int BookId { get; set; }
     [Required]
     public DateTime LoanDate { get; set; } = DateTime.Now;
     public DateTime? ReturnDate { get; set; }
 
     [JsonIgnore]
-    public User? User { get; set; }
+    public User User { get; set; }
     [JsonIgnore]
-    public Book? Book { get; set; }
+    public Book Book { get; set; }
 }

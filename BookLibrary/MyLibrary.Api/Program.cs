@@ -104,7 +104,7 @@ app.MapDelete("/admin/books/{id}", async (int id, IBookService bookService) =>
 
 //admin can delete loan (update return date)
 
-app.MapPut("admin/loans/{loanId}/return", async  (int loanId, DateTime returnDate, ILoanService loanService) =>
+app.MapPut("/admin/loans/{loanId}/return", async  (int loanId, DateTime returnDate, ILoanService loanService) =>
 {
     var updatedLoan = await loanService.UpdateReturnDateAsync(loanId, returnDate);
 
