@@ -26,7 +26,11 @@ public class LoanRepository : ILoanRepository
     }
 
 
-
-
+    public async Task<Loan> AddLoanAsync(Loan loan)
+    {
+        _dbContext.Loans.Add(loan);
+        await _dbContext.SaveChangesAsync();
+        return loan;
+    }
 
 }

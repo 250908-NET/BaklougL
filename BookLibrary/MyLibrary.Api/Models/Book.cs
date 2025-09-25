@@ -19,5 +19,5 @@ public class Book
     public int PublishedYear { get; set; }
 
     [JsonIgnore]
-    public List<User> Users { get; set; } = new List<User>();
+    public List<Loan> Loans { get; set; } = new List<Loan>();
 }

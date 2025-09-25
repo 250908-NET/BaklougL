@@ -9,5 +9,5 @@ public interface ILoanRepository
     // Define methods for managing loans, e.g.:
     public Task<List<Loan>> GetLoansByUserIdAsync(int userId);
 
-
+    public Task<Loan> AddLoanAsync(Loan loan);
 }

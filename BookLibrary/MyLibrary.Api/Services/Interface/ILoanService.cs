@@ -7,5 +7,5 @@ public interface ILoanService
 {
    
     public Task<List<Loan>> GetLoansByUserIdAsync(int userId);
-   
+    public Task<Loan> AddLoanAsync(Loan loan);
 }

@@ -14,7 +14,13 @@ public class LoanService : ILoanService
         _loanRepository = loanRepository;
     }
 
-    
+
     public Task<List<Loan>> GetLoansByUserIdAsync(int userId) => _loanRepository.GetLoansByUserIdAsync(userId);
    
+        public async Task<Loan> AddLoanAsync(Loan loan)
+    {
+
+        await _loanRepository.AddLoanAsync(loan);
+        return loan;
+    }
 }

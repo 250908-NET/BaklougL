@@ -80,6 +80,18 @@ app.MapPost("/admin/books", async (Book book, IBookService bookService) =>
     return Results.Created($"/books/{createdBook.Id}", createdBook);
 });
 
+//admin can add new books to the liberary
+app.MapPost("/admin/users", async (User user, IUserService userService) =>
+{
+    var createdUser = await userService.AddUserAsync(user);
+    return Results.Created($"/users/{createdUser.Id}", createdUser);
+});
+
+app.MapPost("/admin/loans", async (Loan loan, ILoanService loanService) =>
+{
+    var createdLoan = await loanService.AddLoanAsync(loan);
+    return Results.Created($"/loans/{createdLoan.Id}", createdLoan);
+});
 
 // GET /users/{id}/books
 // app.MapGet("/users/{id}/books", async (int id, IUserService userService) =>

@@ -10,5 +10,5 @@ public class User
 
     public string Name { get; set; }
 
-    public List<Book> Books { get; set; } = new List<Book>();
+    public List<Loan> Loans { get; set; } = new List<Loan>();
 }
