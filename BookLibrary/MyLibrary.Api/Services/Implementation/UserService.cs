@@ -12,7 +12,7 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public Task<List<User>> GetAllUsersAsync() => _userRepository.GetAllUsersAsync();  
+    public Task<List<User>> GetAllUsersAsync() => _userRepository.GetAllUsersAsync();
 
     public Task<User?> GetUserByIdAsync(int id) => _userRepository.GetUserByIdAsync(id);
 
@@ -22,4 +22,8 @@ public class UserService : IUserService
         await _userRepository.AddUserAsync(user);
         return user;
     }
+
+    public Task<List<Book>> GetBooksByUserIdAsync(int Id) => _userRepository.GetBooksByUserIdAsync(Id);
+    
+    
 }

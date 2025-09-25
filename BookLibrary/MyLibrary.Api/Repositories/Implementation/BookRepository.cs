@@ -32,31 +32,38 @@ public class BookRepository : IBookRepository
         return await _dbContext.Books.ToListAsync();
     }
 
-   public async Task<Book?> UpdateBookAsync(int id, Book updatedBook)
-{
-    var existingBook = await _dbContext.Books.FindAsync(id);
-    if (existingBook == null)
-        return null;
+    public async Task<Book?> UpdateBookAsync(int id, Book updatedBook)
+    {
+        var existingBook = await _dbContext.Books.FindAsync(id);
+        if (existingBook == null)
+            return null;
 
-    existingBook.Title = updatedBook.Title;
-    existingBook.Author = updatedBook.Author;
-    existingBook.PublishedYear = updatedBook.PublishedYear;
+        existingBook.Title = updatedBook.Title;
+        existingBook.Author = updatedBook.Author;
+        existingBook.PublishedYear = updatedBook.PublishedYear;
 
-    _dbContext.Books.Update(existingBook);
-    await _dbContext.SaveChangesAsync();
+        _dbContext.Books.Update(existingBook);
+        await _dbContext.SaveChangesAsync();
 
-    return existingBook;
-}
+        return existingBook;
+    }
 
     public async Task<bool> DeleteBookAsync(int id)
-{
-    var book = await _dbContext.Books.FindAsync(id);
-    if (book == null)
-        return false;
+    {
+        var book = await _dbContext.Books.FindAsync(id);
+        if (book == null)
+            return false;
 
-    _dbContext.Books.Remove(book);
-    await _dbContext.SaveChangesAsync();
-    return true;
-}
-    
+        _dbContext.Books.Remove(book);
+        await _dbContext.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<List<Book>> GetBooksByUserIdAsync(int userId)
+    {
+        return await _dbContext.Books
+            .Where(b => b.Id == userId)
+            .ToListAsync();
+    }
+
 }

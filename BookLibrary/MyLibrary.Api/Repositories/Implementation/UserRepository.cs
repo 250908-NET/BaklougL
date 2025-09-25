@@ -32,6 +32,11 @@ public class UserRepository : IUserRepository
     }
 
 
-
+    public async Task<List<Book>> GetBooksByUserIdAsync(int userId)
+    {
+        return await _dbContext.Books
+            .Where(b => b.Id == userId)
+            .ToListAsync();
+    }
    
 }

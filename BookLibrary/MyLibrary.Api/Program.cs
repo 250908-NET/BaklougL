@@ -59,6 +59,11 @@ app.MapGet("/books/{id}", async (int id, IBookService bookService) =>
 
 
 // GET /users/{id}/books
+app.MapGet("/users/{id}/books", async (int id, IUserService userService) =>
+{
+    var books = await userService.GetBooksByUserIdAsync(id);
+    return Results.Ok(books);
+});
 
 app.Run();
 
