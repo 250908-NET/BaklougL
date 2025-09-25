@@ -12,8 +12,8 @@ using MyLibrary.Api.Data;
 namespace MyLibrary.Api.Migrations
 {
     [DbContext(typeof(MyLibraryDbContext))]
-    [Migration("20250925181004_migration6")]
-    partial class migration6
+    [Migration("20250925202502_migration1")]
+    partial class migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,9 +41,6 @@ namespace MyLibrary.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PublishedYear")
                         .HasColumnType("int");
 
@@ -64,7 +61,10 @@ namespace MyLibrary.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BookId")
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookTitle")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LoanDate")
@@ -106,9 +106,7 @@ namespace MyLibrary.Api.Migrations
                 {
                     b.HasOne("MyLibrary.Api.Models.Book", "Book")
                         .WithMany("Loans")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BookId");
 
                     b.HasOne("MyLibrary.Api.Models.User", "User")
                         .WithMany("Loans")

@@ -23,13 +23,10 @@ public class BookService : IBookService
 
 
 
+    public Task<bool> DeleteBookAsync(int id) => _bookRepository.DeleteBookAsync(id);
 
 
-
-
-
-
-    public async Task<Book> AddBookAsync(Book book)
+   public async Task<Book> AddBookAsync(Book book)
     {
         if (book == null)
             return null;
@@ -38,9 +35,7 @@ public class BookService : IBookService
         return book;
 
     }
-    public Task<Book?> UpdateBookAsync(int id, Book updatedBook) => _bookRepository.UpdateBookAsync(id, updatedBook);
-    public Task<bool> DeleteBookAsync(int id) => _bookRepository.DeleteBookAsync(id);
-    
+
 
    
 }

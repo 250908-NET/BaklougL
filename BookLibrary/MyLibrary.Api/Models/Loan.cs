@@ -11,7 +11,7 @@ public class Loan
     [Required]
     public int UserId { get; set; }
     [Required]
-    public int BookId { get; set; }
+    public int BookTitle { get; set; }
     [Required]
     public DateTime LoanDate { get; set; } = DateTime.Now;
     public DateTime? ReturnDate { get; set; }

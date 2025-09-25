@@ -30,7 +30,7 @@ public class BookRepository : IBookRepository
     }
 
 
-     public async Task<List<Book>> GetBooksByUserIdAsync(int userId)
+    public async Task<List<Book>> GetBooksByUserIdAsync(int userId)
     {
         return await _dbContext.Books
             .Where(b => b.Id == userId)
@@ -51,24 +51,8 @@ public class BookRepository : IBookRepository
         return book;
     }
 
-   
 
-  
-    public async Task<Book?> UpdateBookAsync(int id, Book updatedBook)
-    {
-        var existingBook = await _dbContext.Books.FindAsync(id);
-        if (existingBook == null)
-            return null;
 
-        existingBook.Title = updatedBook.Title;
-        existingBook.Author = updatedBook.Author;
-        existingBook.PublishedYear = updatedBook.PublishedYear;
-
-        _dbContext.Books.Update(existingBook);
-        await _dbContext.SaveChangesAsync();
-
-        return existingBook;
-    }
 
     public async Task<bool> DeleteBookAsync(int id)
     {
@@ -80,7 +64,7 @@ public class BookRepository : IBookRepository
         await _dbContext.SaveChangesAsync();
         return true;
     }
+    
 
-   
-
+  
 }

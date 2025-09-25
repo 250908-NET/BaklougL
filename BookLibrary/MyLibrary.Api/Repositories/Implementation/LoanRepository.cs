@@ -33,4 +33,16 @@ public class LoanRepository : ILoanRepository
         return loan;
     }
 
+
+    public async Task<Loan?> UpdateReturnDateAsync(int loanId, DateTime returnDate)
+    {
+        var loan = await _dbContext.Loans.FindAsync(loanId);
+        if (loan == null) return null;
+
+        loan.ReturnDate = returnDate;
+        await _dbContext.SaveChangesAsync();
+
+        return loan;
+    }
+
 }

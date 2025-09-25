@@ -12,9 +12,8 @@ public interface IBookService
 
 
 
-    // public Task<Book?> GetBookByIdAsync(int id);
     public Task<Book> AddBookAsync(Book book);
-    public Task<Book?> UpdateBookAsync(int id, Book updatedBook);
+    
     public Task<bool> DeleteBookAsync(int id);
 
     

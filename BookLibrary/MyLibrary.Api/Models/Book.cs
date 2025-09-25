@@ -14,8 +14,6 @@ public class Book
     [Required]
     public string Genre { get; set; } = string.Empty;
     [Required]
-    public bool IsAvailable { get; set; } = true;
-    [Required]
     public int PublishedYear { get; set; }
 
     [JsonIgnore]

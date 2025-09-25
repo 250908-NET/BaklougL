@@ -13,7 +13,6 @@ public interface IBookRepository
 
 
     public Task<Book> AddBookAsync(Book book);
-    public Task<Book?> UpdateBookAsync(int id, Book updatedBook);
     public Task<bool> DeleteBookAsync(int id);
     
 

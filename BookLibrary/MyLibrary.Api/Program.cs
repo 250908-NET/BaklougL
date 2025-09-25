@@ -80,33 +80,44 @@ app.MapPost("/admin/books", async (Book book, IBookService bookService) =>
     return Results.Created($"/books/{createdBook.Id}", createdBook);
 });
 
-//admin can add new books to the liberary
+//admin can add new users to the liberary
 app.MapPost("/admin/users", async (User user, IUserService userService) =>
 {
     var createdUser = await userService.AddUserAsync(user);
     return Results.Created($"/users/{createdUser.Id}", createdUser);
 });
 
+//admin add new checkout
 app.MapPost("/admin/loans", async (Loan loan, ILoanService loanService) =>
 {
     var createdLoan = await loanService.AddLoanAsync(loan);
     return Results.Created($"/loans/{createdLoan.Id}", createdLoan);
 });
 
-// GET /users/{id}/books
-// app.MapGet("/users/{id}/books", async (int id, IUserService userService) =>
-// {
-//     var books = await userService.GetBooksByUserIdAsync(id);
-//     return Results.Ok(books);
-// });
+// admin can delete book
+
+app.MapDelete("/admin/books/{id}", async (int id, IBookService bookService) =>
+{
+    var deleted = await bookService.DeleteBookAsync(id);
+    return deleted ? Results.Ok() : Results.NotFound();
+});
+
+//admin can delete loan (update return date)
+
+app.MapPut("admin/loans/{loanId}/return", async  (int loanId, DateTime returnDate, ILoanService loanService) =>
+{
+    var updatedLoan = await loanService.UpdateReturnDateAsync(loanId, returnDate);
+
+    if (updatedLoan == null)
+        return Results.NotFound();
+
+    return Results.Ok(updatedLoan);
+});
+
+
 
 app.Run();
 
 
 
 
-// app.MapGet("/books/{id}", async (int id, IBookService bookService) =>
-// {
-//     var book = await bookService.GetBookByIdAsync(id);
-//     return book is not null ? Results.Ok(book) : Results.NotFound();
-// });

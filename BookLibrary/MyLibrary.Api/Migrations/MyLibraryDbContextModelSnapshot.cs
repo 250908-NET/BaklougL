@@ -38,9 +38,6 @@ namespace MyLibrary.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PublishedYear")
                         .HasColumnType("int");
 
@@ -61,7 +58,10 @@ namespace MyLibrary.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BookId")
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookTitle")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LoanDate")
@@ -103,9 +103,7 @@ namespace MyLibrary.Api.Migrations
                 {
                     b.HasOne("MyLibrary.Api.Models.Book", "Book")
                         .WithMany("Loans")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BookId");
 
                     b.HasOne("MyLibrary.Api.Models.User", "User")
                         .WithMany("Loans")
