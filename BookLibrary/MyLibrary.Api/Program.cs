@@ -15,11 +15,9 @@ builder.Services.AddDbContext<MyLibraryDbContext>(options => options.UseSqlServe
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ILoanService, LoanService>();
 
 
 Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).CreateLogger(); 
@@ -42,10 +40,16 @@ app.MapGet("/", () =>
 });
 
 
-// app.MapGet("/books", async (IBookService Service) =>
-// {
-//     Results.Ok(await service.GetAllBooksAsync());
-// });
+app.MapPost("/books", async (Book book, IBookService bookService) =>
+{
+    var createdBook = await bookService.AddBookAsync(book);
+    return Results.Created($"/books/{createdBook.Id}", createdBook);
+});
+
+app.MapGet("/books", async (IBookService bookService) =>
+{
+    return Results.Ok(await bookService.GetAllBooksAsync());
+});
 
 app.MapGet("/books/{id}", async (int id, IBookService bookService) =>
 {
@@ -54,6 +58,7 @@ app.MapGet("/books/{id}", async (int id, IBookService bookService) =>
 });
 
 
+// GET /users/{id}/books
 
 app.Run();
 

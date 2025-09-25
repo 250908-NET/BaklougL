@@ -22,8 +22,4 @@ public class UserService : IUserService
         await _userRepository.AddUserAsync(user);
         return user;
     }
-
-  
-   
 }
-

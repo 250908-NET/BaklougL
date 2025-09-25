@@ -12,8 +12,8 @@ using MyLibrary.Api.Data;
 namespace MyLibrary.Api.Migrations
 {
     [DbContext(typeof(MyLibraryDbContext))]
-    [Migration("20250924174257_Initial")]
-    partial class Initial
+    [Migration("20250925014751_migration2")]
+    partial class migration2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,28 +24,6 @@ namespace MyLibrary.Api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("MyLibrary.Api.Models.Admin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("MyLibrary.Api.Models.Book", b =>
                 {
@@ -59,13 +37,12 @@ namespace MyLibrary.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AvailabilityStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
 
                     b.Property<int>("PublishedYear")
                         .HasColumnType("int");
@@ -81,11 +58,11 @@ namespace MyLibrary.Api.Migrations
 
             modelBuilder.Entity("MyLibrary.Api.Models.Loan", b =>
                 {
-                    b.Property<int>("LoanId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LoanId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
@@ -93,13 +70,10 @@ namespace MyLibrary.Api.Migrations
                     b.Property<DateTime>("LoanDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ReturnDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("LoanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
@@ -116,18 +90,12 @@ namespace MyLibrary.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CurrentlyBorrowedBooks")
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -136,27 +104,21 @@ namespace MyLibrary.Api.Migrations
 
             modelBuilder.Entity("MyLibrary.Api.Models.Loan", b =>
                 {
-                    b.HasOne("MyLibrary.Api.Models.Book", null)
-                        .WithMany("Loans")
+                    b.HasOne("MyLibrary.Api.Models.Book", "Book")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyLibrary.Api.Models.User", null)
-                        .WithMany("Loans")
+                    b.HasOne("MyLibrary.Api.Models.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("MyLibrary.Api.Models.Book", b =>
-                {
-                    b.Navigation("Loans");
-                });
+                    b.Navigation("Book");
 
-            modelBuilder.Entity("MyLibrary.Api.Models.User", b =>
-                {
-                    b.Navigation("Loans");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
