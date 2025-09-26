@@ -18,7 +18,7 @@ BookLibrary is an ASP.NET Core Minimal API project designed to manage books and 
 
 * Includes DTOs (Data Transfer Objects) for clean API responses
 
-* Unit tests with ≥ 20% coverage
+* Unit tests with ≥ 23% coverage
 
 * ERD diagram of models & relationships
 
@@ -26,6 +26,14 @@ BookLibrary is an ASP.NET Core Minimal API project designed to manage books and 
 
 * Core entities:
 
-- Book
+- Book: A Book can have many Loans.
 
-- User
+- User :A User can have many Loans.
+
+- Loan: The Loan table is the bridge/junction that resolves the many-to-many relationship between User and Book
+
+* User ↔ Loan = one-to-many
+
+* Book ↔ Loan = one-to-many
+
+* User ↔ Book = many-to-many (through Loan)
