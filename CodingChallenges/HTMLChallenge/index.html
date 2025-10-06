@@ -11,32 +11,68 @@
 </head>
 
 <body>
-<div>
-    <div class="container">
-        <header>
-            <h1>About Me</h1>
-        </header>
+    <div>
+        <div class="container">
+            <header>
+                <h1>About Me</h1>
+            </header>
 
 
-        <section class="about">
-            <p>Hello! My name is Ledya Bakloug. I am a web developer with a passion for creating beautiful and functional websites and exploring new technologies.</p>
-        </section>
+            <section class="about">
+                <p>Hello! My name is Ledya Bakloug. I am a web developer with a passion for creating beautiful and
+                    functional websites and exploring new technologies.</p>
+            </section>
 
-        <section class="hobbies">
-            <h2>My Hobbies</h2>
-            <ul class="hobby-list">
-                <li>Reading</li>
-                <li>Hiking</li>
-                <li>Traveling</li>
-            </ul>
-        </section>
+            <section class="hobbies">
+                <h2>My Hobbies</h2>
+                <ul class="hobby-list">
+                    <li>Reading</li>
+                    <li>Hiking</li>
+                    <li>Traveling</li>
+                </ul>
+            </section>
 
-        <section >
-                <img class="picture" src="/CodingChallenges/HTMLChallenge/pexels-ninauhlikova-287240.jpg" alt="profile picture">
-        </section>
+            <section class="add-item">
+                <h2>Add a New Hobby</h2>
+                <input type="text" id="new-hobby" placeholder="Enter a hobby">
+                <button onclick="addHobby()">Add Hobby</button>
+            </section>
 
+            <script>
+                const addHobby = (() => {
+                    const listElement = document.getElementById('hobbies-list');
+
+                    // Initialize the hobbies array with existing list items
+                    const hobbies = Array.from(listElement.querySelectorAll('li')).map(li => li.textContent);
+
+                    return function () {
+                        const input = document.getElementById('new-hobby');
+                        const hobby = input.value.trim();
+                        if (hobby) {
+                            hobbies.push(hobby);
+                            renderHobbies();
+                            input.value = '';
+                        }
+                    };
+
+                    function renderHobbies() {
+                        listElement.innerHTML = '';
+                        hobbies.forEach(h => {
+                            const li = document.createElement('li');
+                            li.textContent = h;
+                            listElement.appendChild(li);
+                        });
+                    }
+                })();
+            </script>
+
+            <section>
+                <img class="picture" src="/CodingChallenges/HTMLChallenge/pexels-ninauhlikova-287240.jpg"
+                    alt="profile picture">
+            </section>
+
+        </div>
     </div>
-</div>
 </body>
 
 </html>
